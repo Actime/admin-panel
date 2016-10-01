@@ -1,0 +1,108 @@
+
+<div class="row" ng-controller="KitStatesController">
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="page-title">
+
+            <div class="title_left">
+                <h3><i class="fa fa-list-alt"></i> Kit States</h3>
+            </div>
+
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2><i class="fa fa-plus-circle" aria-hidden="true"></i> New Kit State</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><i class="fa fa-plus-circle"></i> Clear</li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2><i class="fa fa-th-list" aria-hidden="true"></i> Kit State list</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a href="#/events/new/" class="collapse-link"><i class="fa fa-plus-circle"> New Kit State</i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    <div class="table-responsive">
+                        <table id="da_table" class="table table-striped table-bordered">
+                            <thead>
+                                <tr class="headings">
+                                    <th class="column-title"># </th>
+                                    <th class="column-title">Description </th>
+                                    <th class="column-title">Value</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr ng-repeat="ks in kit_states" class="even pointer">
+                                    <td class=" ">{{ks.id}}</td>
+                                    <td class=" ">{{ks.description}}</td>
+                                    <td class=" ">{{ks.value}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Datatables -->
+<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+<script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+<script src="../vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
+<script src="../vendors/jszip/dist/jszip.min.js"></script>
+<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+<script>
+    $(document).ready(function() {
+        
+        $('#da_table').dataTable();
+
+    });
+</script>

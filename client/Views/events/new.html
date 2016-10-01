@@ -1,0 +1,174 @@
+
+<div class="row" ng-controller="EventController">
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="page-title">
+
+            <div class="title_left">
+                <h3><i class="fa fa-calendar"></i> Events</h3>
+            </div>
+
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2><i class="fa fa-plus-circle" aria-hidden="true"></i> New Event</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    <form id="new_event" data-parsley-validate class="form-horizontal form-label-left">
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Name <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="name" required="required" class="form-control col-md-7 col-xs-12" placeholder="name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Description <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <textarea id="description" class="form-control" rows="3" placeholder="description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Type</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div id="event_type" class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                        <input type="radio" name="event_type" value="1"> Running
+                                    </label>
+                                    <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                        <input type="radio" name="event_type" value="2"> Cycling
+                                    </label>
+                                    <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                        <input type="radio" name="event_type" value="3"> Triathlon
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Start Date <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="date_start" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" placeholder="Start">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Finish Date <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="date_finish" class="form-control col-md-7 col-xs-12" required="required" type="text" placeholder="Finish">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Limit <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="date_limit" class="form-control col-md-7 col-xs-12" required="required" type="text" placeholder="Date Limit">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Limit <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="competitors_limit" class="form-control col-md-7 col-xs-12" required="required" type="text" placeholder="Competitors Limit">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Ubication <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="ubication" class="form-control col-md-7 col-xs-12" required="required" type="text" placeholder="Ubication">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Address <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="address" class="form-control col-md-7 col-xs-12" required="required" type="text" placeholder="Address">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="btn btn-file control-label col-md-3 col-sm-3 col-xs-12">
+                                <i class="fa fa-picture-o" aria-hidden="true"></i> <input type="file" style="display: none;">
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="event_image_name" class="form-control" readonly placeholder="Choose Image">
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <a href="#/events/">
+                                    <button type="submit" class="btn btn-primary">Cancel</button>
+                                </a>
+                                <button type="submit" class="btn btn-success">Create</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#date_start').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            format: 'MM-DD-YYYY h:mm A',
+            singleDatePicker : true,
+            calender_style: "picker_4"
+        });
+        $('#date_finish').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            format: 'MM-DD-YYYY h:mm A',
+            singleDatePicker: true,
+            calender_style: "picker_4"
+        }, function(start, end, label) {
+            console.log(start.toISOString(), end.toISOString(), label);
+        });
+        $('#date_limit').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            format: 'MM-DD-YYYY h:mm A',
+            singleDatePicker: true,
+            calender_style: "picker_4"
+        }, function(start, end, label) {
+            console.log(start.toISOString(), end.toISOString(), label);
+        });
+    });
+</script>
+<script type="text/javascript" src='http://maps.google.com/maps/api/js?key=AIzaSyC8Y-43nP6oyq3CjoWLvn0YcNUcSXV-vr8&libraries=places'></script>
+<script>
+    var directionsDisplay,
+        directionsService,
+        map;
+
+    function initialize() {
+      var directionsService = new google.maps.DirectionsService();
+      directionsDisplay = new google.maps.DirectionsRenderer();
+      var chicago = new google.maps.LatLng(41.850033, -87.6500523);
+      var mapOptions = { zoom:7, mapTypeId: google.maps.MapTypeId.ROADMAP, center: chicago }
+      map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+      directionsDisplay.setMap(map);
+    }
+</script>

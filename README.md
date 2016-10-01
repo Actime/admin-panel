@@ -1,0 +1,53 @@
+
+# api list
+    ^admin/
+    ^$ [name='views.index']
+    ^contact/$ [name='views.contact']
+    ^about/$ [name='views.about']
+    ^accounts/register/$ [name='registration_register']
+    ^accounts/
+    ^api/ ^kitstate/$ [name='kitstate.list']
+    ^api/ ^kitstate/(?P<pk>[0-9]+)$ [name='kitstate.detail']
+    ^api/ ^registerstate/$ [name='registerstate.list']
+    ^api/ ^registerstate/(?P<pk>[0-9]+)$ [name='registerstate.detail']
+    ^api/ ^rol/$ [name='rol.list']
+    ^api/ ^rol/(?P<pk>[0-9]+)$ [name='rol.detail']
+    ^api/ ^usersystem/$ [name='usersystem.list']
+    ^api/ ^usersystem/(?P<pk>[0-9]+)$ [name='usersystem.detail']
+    ^api/ ^usersystem/getbyuser/$ [name='usersystem.getbyuser']
+    ^api/ ^user/$ [name='user.list']
+    ^api/ ^user/(?P<pk>[0-9]+)$ [name='user.detail']
+    ^api/ ^user/login/$ [name='user.login']
+    ^api/ ^event/$ [name='event.list']
+    ^api/ ^event/(?P<pk>[0-9]+)$ [name='event.detail']
+    ^api/ ^event/image/(?P<pk>[0-9]+)$ [name='event.image']
+    ^api/ ^event/galery/(?P<pk>[0-9]+)$ [name='event.galery']
+    ^api/ ^eventtype/$ [name='eventtype.list']
+    ^api/ ^eventtype/(?P<pk>[0-9]+)$ [name='eventtype.detail']
+    ^api/ ^competition/$ [name='competition.list']
+    ^api/ ^competition/(?P<pk>[0-9]+)$ [name='competition.detail']
+    ^api/ ^competition/byevent/$ [name='competition.byevent']
+    ^api/ ^competition/categories/$ [name='competition.categories']
+    ^api/ ^competition/image/(?P<pk>[0-9]+)$ [name='competition.image']
+    ^api/ ^competitiontype/$ [name='competitiontype.list']
+    ^api/ ^competitiontype/(?P<pk>[0-9]+)$ [name='competitiontype.detail']
+    ^api/ ^category/$ [name='category.list']
+    ^api/ ^category/(?P<pk>[0-9]+)$ [name='category.detail']
+    ^api/ ^register/$ [name='register.list']
+    ^api/ ^register/(?P<pk>[0-9]+)$ [name='register.detail']
+    ^api/ ^register/competitornum/(?P<pk>[0-9]+)$ [name='register.competitor_num']
+    ^api/ ^register/bycompetition/$ [name='register.bycompetition']
+    ^api/ ^timereg/$ [name='timereg.list']
+    ^api/ ^timereg/(?P<pk>[0-9]+)$ [name='timereg.detail']
+    ^api/ ^timereg/byregister/$ [name='timereg.byregister']
+    ^api/ ^authentication/$ [name='authentication.list']
+    ^api/ ^authentication/(?P<pk>[0-9]+)$ [name='authentication.detail']
+    ^api/ ^competitor/$ [name='competitor.list']
+    ^api/ ^competitor/(?P<pk>[0-9]+)$ [name='competitor.detail']
+    ^api/ ^team/$ [name='team.list']
+    ^api/ ^team/(?P<pk>[0-9]+)$ [name='team.detail']
+    ^event/
+    ^competitor/
+    ^facebook/
+    ^accounts/
+    ^paypal/

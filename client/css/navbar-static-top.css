@@ -1,0 +1,339 @@
+body {
+  min-height: auto;
+  font-family: 'Amiri', serif;
+}
+
+a {
+
+	color : #434343;
+}
+
+a:hover {
+	color : #F8656B;
+}
+
+.navbar-static-top {
+	position: fixed;
+	margin-bottom: 19px;
+	background-color: white;
+	height: 80px;
+	min-width: 96%;
+	align-items: center;
+	margin-left: 3%;
+	margin-right: 3%;
+}
+
+.btn-header {
+	margin-top: 10%;
+	margin-left:10px;
+	display:inline;
+}
+
+.nav.navbar-nav {
+	margin-top: 29px;
+}
+
+.nav.navbar-nav>li>a{
+	font-family: 'Amiri', serif;
+	font-size: 18px;
+}
+
+.nav.navbar-nav>li.active>a{
+	background-color: white;
+	color: #174464;
+}
+
+.nav.navbar-nav>li.active>a:hover{
+	background-color: white;
+	color: #F44C59;
+}
+
+.nav.navbar-nav>li>a:hover{
+	background-color: white;
+	color: #F44C59;
+}
+
+.container.main{
+	position: relative;
+}
+
+.top_container {
+	max-width: 80%;
+}
+
+.top_authors {
+	font-size : 14px;
+	font-family: 'Trirong', serif;
+	border-top: 1px;
+	border-top: thick solid #FDA67B;
+}
+
+.top_added, .top_shares {
+	font-size: 14px;
+	font-family: 'Trirong', serif;
+}
+.fragmas_box {
+
+	font-family: 'Trirong', serif;
+}
+.label_shares {
+	font-size: 12px;
+	color: #F8656B;
+	margin-top: -10px;
+}
+
+.label_adds {
+	font-size: 12px;
+	color: #F8656B;
+	margin-top: -10px;
+}
+
+.label_author_data {
+	font-size: 12px;
+	color : #1C5777;
+	margin-top: -10px;
+}
+
+.added_item {
+	border-left: thick solid #40666F;
+	margin-left: 20px;
+}
+
+.added_item > p {
+	margin-left: 8px;
+}
+
+.shared_item {
+	border-right: thick solid #40666F;
+	margin-right: 20px;
+}
+
+.shared_item > p {
+	margin-right: 8px;
+}
+
+.author_item {
+	margin-top: 13px;
+	margin-bottom: 13px;
+}
+
+.author-image {
+    box-shadow: 4px 4px 4px #84A0A4;
+}
+
+.actual_header {
+	min-width: 100%;
+	background-color: #fff;
+	height: 200px;
+	margin-top: 100px;
+}
+
+.preview-image {
+	max-width: 65px;
+	max-height: 65px;
+}
+
+
+.frame_1 {
+	background-color: white;
+	visibility: hidden;
+	-webkit-animation-name: frame_animation_1; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 32s; /* Chrome, Safari, Opera */
+    -webkit-animation-delay: 24s; /* Chrome, Safari, Opera */
+    animation-iteration-count: infinite;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.frame_2 {
+	background-color: white;
+	visibility: hidden;
+	-webkit-animation-name: frame_animation_2; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 32s; /* Chrome, Safari, Opera */
+    -webkit-animation-delay: 16s; /* Chrome, Safari, Opera */
+    animation-iteration-count: infinite;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.frame_3 {
+	background-color: white;
+	visibility: hidden;
+	-webkit-animation-name: frame_animation_3; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 32s; /* Chrome, Safari, Opera */
+    -webkit-animation-delay: 8s; /* Chrome, Safari, Opera */
+    animation-iteration-count: infinite;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.frame_4 {
+	background-color: white;
+	visibility: visible;
+	-webkit-animation-name: frame_animation_4; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 32s; /* Chrome, Safari, Opera */
+    -webkit-animation-delay: 0s; /* Chrome, Safari, Opera */
+    animation-iteration-count: infinite;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.tool_frag_box {
+
+	font-size: 18px;
+}
+
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes frame_animation_1 {
+    0%   { visibility: visible; }
+    25%   { visibility: hidden; }
+    75%   { visibility: hidden; }
+    100% { visibility: hidden; }
+   }
+
+@-webkit-keyframes frame_animation_2 {
+    0%   { visibility: visible; }
+    25%   { visibility: hidden; }
+    75%   { visibility: hidden; }
+    100% { visibility: hidden; }
+}
+
+@-webkit-keyframes frame_animation_3 {
+    0%   { visibility: visible; }
+    25%   { visibility: hidden; }
+    75%   { visibility: hidden; }
+    100% { visibility: hidden; }
+}
+
+@-webkit-keyframes frame_animation_4 {
+    0%   { visibility: visible; }
+    25%   { visibility: hidden; }
+    75%   { visibility: hidden; }
+    100% { visibility: hidden; }
+}
+
+.fragma_auth {
+	background-color: #1C5777;
+}
+
+.frame_4, .frame_3, .frame_2, .frame_1{
+  transition: transform 1s;
+}
+
+.frame_4:hover, .frame_3:hover, .frame_2:hover, .frame_1:hover {
+  transform: translate(20px, 20px);
+}
+
+.fragma {
+	transition: transform 1s;
+}
+
+.fragma:hover {
+	transform: scale(1.1);
+	color: #1C5777;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.write-form-box {
+	margin-left: 50px;
+	margin-top: 50px;
+	width: 60%;
+}
+
+.account_container, .books_container{
+	margin-top: 100px;
+}
+
+/*
+* The image profile container
+*/
+/**
+ * Profile image component
+ */
+.profile-header-container{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.profile-header-img {
+    padding: 54px;
+}
+
+.profile-header-img > img.img-circle {
+    width: 120px;
+    height: 120px;
+    border: 2px solid #51D2B7;
+}
+
+.profile-header {
+    margin-top: 0px;
+}
+/**
+ * Ranking component
+ */
+.rank-label-container {
+    margin-top: -19px;
+    /* z-index: 1000; */
+    text-align: center;
+}
+
+.label.label-default.rank-label {
+    background-color: rgb(81, 210, 183);
+    padding: 5px 10px 5px 10px;
+    border-radius: 27px;
+}
+
+.book-list{
+	width: 100%;
+}
+
+.books-box-title {
+	font-size : 18px;
+}
+
+.top_container_controller{
+	margin-top: 100px;
+}
