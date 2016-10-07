@@ -1,5 +1,5 @@
 
-var application = angular.module('actime_admin_main_app', ['ngRoute', 'ngCookies'])
+var application = angular.module('actime_admin_main_app', ['ngRoute', 'ngCookies', 'ngMaterial'])
     .run( ['$rootScope', '$location', 'AuthRepository', function( $rootScope, $location, AuthRepository ) {
         // If not loggedin, load login path
         if( !AuthRepository.isSessionSet() ) {
@@ -19,11 +19,11 @@ var application = angular.module('actime_admin_main_app', ['ngRoute', 'ngCookies
             .when( '/events/new/', {
                 templateUrl: '../Views/events/new.html',
             })
-            .when( '/events/:id', {
-                templateUrl: '../Views/events/detail.html',
-            })
             .when( '/events/edit/:id', {
                 templateUrl: '../Views/events/edit.html',
+            })
+            .when( '/events/:id', {
+                templateUrl: '../Views/events/detail.html',
             })
             .when( '/results/:id', {
                 templateUrl: '../Views/events/results.html',
@@ -32,27 +32,27 @@ var application = angular.module('actime_admin_main_app', ['ngRoute', 'ngCookies
             .when( '/competitions/', {
                 templateUrl: '../Views/competitions/list.html',
             })
-            .when( '/competitions/:id', {
-                templateUrl: '../Views/competitions/detail.html',
-            })
-            .when( '/competitions/new/', {
+            .when( '/competitions/new/:id', {
                 templateUrl: '../Views/competitions/new.html',
             })
             .when( '/competitions/edit/:id', {
                 templateUrl: '../Views/competitions/edit.html',
             })
+            .when( '/competitions/:id', {
+                templateUrl: '../Views/competitions/detail.html',
+            })
             // Competitors
             .when( '/competitors/', {
                 templateUrl: '../Views/competitors/list.html',
             })
-            .when( '/competitors/:id', {
-                templateUrl: '../Views/competitors/detail.html',
-            })
-            .when( '/competitions/new/', {
+            .when( '/competitors/new/', {
                 templateUrl: '../Views/competitors/new.html',
             })
             .when( '/competitors/edit/:id', {
                 templateUrl: '../Views/competitors/edit.html',
+            })
+            .when( '/competitors/:id', {
+                templateUrl: '../Views/competitors/detail.html',
             })
             // categories
             .when( '/categories/', {
@@ -64,6 +64,9 @@ var application = angular.module('actime_admin_main_app', ['ngRoute', 'ngCookies
             // registers
             .when( '/registers/new/:id', {
                 templateUrl: '../Views/registers/new.html',
+            })
+            .when( '/registers/cfm/:id', {
+                templateUrl: '../Views/registers/confirmation_win.html',
             })
             // General
             .when( '/settings/', {
@@ -87,6 +90,37 @@ var application = angular.module('actime_admin_main_app', ['ngRoute', 'ngCookies
                 templateUrl: '../login.html',
             })
             .otherwise({
-              redirectTo: '/404'
+                redirectTo: '/404'
             });
-    }]);// End of config application function
+    }])
+    .controller( 'homeController', [ '$scope', 'EventRepository', 'CompetitionsRepository', 'RegistersRepository', function( $scope, EventRepository, CompetitionsRepository, RegistersRepository ) {
+        $scope.data = { total_events : 0, total_competitors : 0, kits_delivered : 0, kits_returned : 0, total_competitions : 0 };
+        EventRepository.getAll().success( function( data ) {
+            var events = data['data'];
+            $scope.data.total_events = events.length;
+        }).error( function( error ) {
+            $.nofity( "There was an error with event data.", "error" );
+        });
+        CompetitionsRepository.getAllCompetitions().success( function( data ) {
+            var competitions = data['data'];
+            $scope.data.total_competitions = competitions.length;
+        }).error( function( error ) {
+            $.notify( "There was an error with competition data.", "error" );
+        });
+        RegistersRepository.getRegisters().success( function( data ) {
+            var registers = data['data'];
+            $scope.data.kits_delivered = registers.filter( register => register.kit_state === 3 ).length;
+            $scope.data.kits_returned = registers.filter( register => register.kit_state === 4 ).length;
+        }).error( function( error ) {
+            $.notify( "There was an error with registers data.", "error" );
+        });
+        RegistersRepository.getAllCompetitors().success( function( data ) {
+            var competitors = data['data'];
+            $scope.data.total_competitors = competitors.length;
+        }).error( function( error ) {
+
+        });
+    }])
+    .controller( 'statsController', [ '$scope', function( $scope ) {
+
+    }]);

@@ -1,0 +1,181 @@
+
+<div class="row" ng-controller="CompetitionsController">
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="page-title">
+
+            <div class="title_left">
+                <h3><i class="fa fa-calendar"></i> Competitions</h3>
+            </div>
+
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2><i class="fa fa-plus-circle" aria-hidden="true"></i> New Competition</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    <form ng-submit="newCompetition()" data-parsley-validate class="form-horizontal form-label-left">
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Name <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input
+                                    type="text"
+                                    ng-model="competition.name"
+                                    class="form-control col-md-7 col-xs-1"
+                                    placeholder="Name"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Description <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <textarea
+                                    ng-model="competition.description"
+                                    class="form-control"
+                                    rows="3"
+                                    placeholder="Description" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Start Date <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input ng-model="competition.date_start" type="text" hidden="hidden" id="date_start_hidden">
+                                <input
+                                    id="date_start"
+                                    class="date-picker form-control col-md-7 col-xs-12"
+                                    required="required"
+                                    type="text"
+                                    placeholder="Start">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Finish Date <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input ng-model="competition.date_finish" type="text" hidden="hidden" id="date_finish_hidden">
+                                <input
+                                    id="date_finish"
+                                    class="form-control col-md-7 col-xs-12"
+                                    required="required"
+                                    type="text"
+                                    placeholder="Finish">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Limit <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input
+                                    ng-model="competition.competitors_limit"
+                                    class="form-control col-md-7 col-xs-12"
+                                    required="required"
+                                    type="number"
+                                    min="1"
+                                    max="2000"
+                                    placeholder="Competitors Limit">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Cost <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input
+                                    ng-model="competition.cost"
+                                    class="form-control col-md-7 col-xs-12"
+                                    required="required"
+                                    type="number"
+                                    min="1"
+                                    max="2000"
+                                    placeholder="Cost">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Competition Type <span class="required"></span></label>
+                            <div class="col-md-6 col-sm-6 col-sx-12">
+                                <select
+                                    class="form-control"
+                                    name="mySelect"
+                                    ng-options="option.name for option in competition_types track by option.id"
+                                    ng-model="competition.competition_type" ></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Categories <span class="required"></span></label>
+                            <div class="col-md-6 col-sm-6 col-sx-12">
+                                <select
+                                    class="form-control"
+                                    name="mySelect"
+                                    ng-options="option.name for option in categories track by option.id"
+                                    ng-model="competition.categories"
+                                    multiple></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="btn btn-file control-label col-md-3 col-sm-3 col-xs-12">
+                                <i class="fa fa-picture-o" aria-hidden="true"></i> Path<input type="file" style="display: none;">
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="competition_image_name" class="form-control" readonly placeholder="Choose Image">
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <a href="#/events/">
+                                    <button class="btn btn-primary">Cancel</button>
+                                </a>
+                                <button type="submit" class="btn btn-success">Create</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready( function() {
+        $('#date_start').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            format: 'MM-DD-YYYY h:mm A',
+            singleDatePicker : true,
+            calender_style: "picker_4"
+        }, function(start, end, label) {
+            $('#date_start_hidden').val( start.toISOString("yyyy-MM-ddTHH:mm:ssZ") );
+        });
+        $('#date_finish').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            format: 'MM-DD-YYYY h:mm A',
+            singleDatePicker: true,
+            calender_style: "picker_4"
+        }, function(start, end, label) {
+            $('#date_finish_hidden').val( start.toISOString("yyyy-MM-ddTHH:mm:ssZ") );
+        });
+    });
+</script>

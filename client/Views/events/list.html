@@ -26,7 +26,7 @@
                 <div class="x_title">
                     <h2><i class="fa fa-th-list" aria-hidden="true"></i> Event list</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                        <li><a href="#/events/new/" class="collapse-link"><i class="fa fa-plus-circle"> New Event</i></a>
+                        <li><a href="#/events/new/" class="collapse-link"><i class="fa fa-plus-circle"></i> New Event</a>
                         </li>
                     </ul>
                     <div class="clearfix"></div>
@@ -46,7 +46,7 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="e in events">
-                                    <td>{{e.name}}</td>
+                                    <td><a href="#/events/{{e.id}}">{{e.name}}</a></td>
                                     <td >{{e.date_start}}</td>
                                     <td >{{e.date_finish}}</td>
                                     <td>{{e.orginizer}}</td>

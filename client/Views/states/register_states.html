@@ -29,12 +29,45 @@
                 <div class="x_title">
                     <h2><i class="fa fa-plus-circle" aria-hidden="true"></i> New Register State</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                        <li><i class="fa fa-plus-circle"></i> Clear</li>
+                        <li><i class="fa fa-eraser" aria-hidden="true"></i> Clear</li>
                     </ul>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
                     <br />
+                    <form ng-submit="newRegisterState()">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input
+                                        class="form-control"
+                                        ng-model="register_state.description"
+                                        type="text"
+                                        name="description"
+                                        id="description"
+                                        placeholder="Description" >
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input
+                                        class="form-control"
+                                        ng-model="register_state.value"
+                                        type="number"
+                                        name="value"
+                                        id="value"
+                                        min="1"
+                                        max="50"
+                                        placeholder="value">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input class="form-control btn-primary" type="submit" value="Add New">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -62,6 +95,7 @@
                                     <th class="column-title"># </th>
                                     <th class="column-title">Description </th>
                                     <th class="column-title">Value </th>
+                                    <th class="column-title">Delete </th>
                                 </tr>
                             </thead>
 
@@ -71,6 +105,7 @@
                                     <td class=" ">{{rs.id}}</td>
                                     <td class=" ">{{rs.description}}</td>
                                     <td class=" ">{{rs.value}}</td>
+                                    <td class=" "><button class="btn btn-sm btn-danger" ng-click="showDeleteConfirm($event, rs.id)">Delete</button></td>
                                 </tr>
 
                             </tbody>
@@ -82,27 +117,3 @@
     </div>
 
 </div>
-
-<!-- Datatables -->
-<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-<script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-<script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-<script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-<script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<script src="../vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
-<script src="../vendors/jszip/dist/jszip.min.js"></script>
-<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
-<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-<script>
-    $(document).ready(function() {
-        
-        $('#da_table').dataTable();
-
-    });
-</script>

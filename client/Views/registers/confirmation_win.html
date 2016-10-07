@@ -1,0 +1,47 @@
+
+<div class="row" ng-controller="PoSController">
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="page-title">
+
+            <div class="title_left">
+                <h3><i class="fa fa-list-alt"></i> PoS [Register Confirmation]</h3>
+            </div>
+
+            <div class="title_right">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2><i class="fa fa-plus-circle" aria-hidden="true"></i> Detail</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><i class="fa fa-eraser" aria-hidden="true"></i> Clear</li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h2>{{register_detail.id}}</h2>
+                            <h2>{{register_detail.competition}}</h2>
+                            <h1 class="text-danger">{{register_detail.competitor_num}}</h1>
+                        </div>
+                        <div class="col-md-4">
+                            <h1>Are you giving the Kit away now?</h1>
+                            <a href="" ng-click="kitPending()"><button class="btn btn-lg btn-warning" >Pending...</button></a>
+                            <a href="" ng-click="kitDelivered()"><button class="btn btn-lg btn-success" >Deliver</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

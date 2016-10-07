@@ -1,0 +1,304 @@
+<div class="row" ng-controller="PoSController">
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="page-title">
+
+            <div class="title_left">
+                <h3><i class="fa fa-money" aria-hidden="true"></i> PoS [New Register]</h3>
+            </div>
+
+            <div class="title_right">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="row">
+
+        <form ng-submit="newRegister()" >
+
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2 class="text-primary"><i class="fa fa-user-plus" aria-hidden="true"></i> New Register</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Competition </label>
+                                                <select
+                                                    class="form-control"
+                                                    ng-options="option.name for option in competitions track by option.id"
+                                                    ng-model="register.competition" ng-change="competitionChange()"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Category </label>
+                                                <select
+                                                    class="form-control"
+                                                    ng-options="option.name for option in categories track by option.id"
+                                                    ng-model="register.category" ></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Team </label>
+                                                <select
+                                                    class="form-control"
+                                                    ng-options="option.name for option in teams track by option.id"
+                                                    ng-model="register.team" ></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Register State </label>
+                                                <select
+                                                    class="form-control"
+                                                    ng-options="option.description for option in register_states track by option.id"
+                                                    ng-model="register.register_state" ></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button class="btn btn-lg btn-primary" style="width:100%" > Register</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2 class="text-primary"><i class="fa fa-user-plus" aria-hidden="true"></i> Search for Competitors</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right top_search">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" ng-model="txt_competitors_search" ng-change="changeSearch()" placeholder="Search ...">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button">Go!</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div ng-if="competitors_filtered">
+                                            <table class="table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Full Name</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="comp in competitors_filtered">
+                                                        <td>{{comp.id}}</td>
+                                                        <td><a href="" ng-click="selectCompetitor(comp)">{{comp.name}} {{comp.second_name}}</a></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-8 pull-right">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2 class="text-primary">Competitors Detail | Change : <input type="checkbox" ng-model="isNewCompetitor" ng-change="newCompetitorCBChange()"></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Competiors Name </label>
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            ng-model="competitor.name"
+                                            ng-disabled="isNewCompetitor"
+                                            placeholder="Name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Second Name </label>
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            ng-model="competitor.second_name"
+                                            ng-disabled="isNewCompetitor"
+                                            placeholder="Second Name">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Birth date </label>
+                                        <input id="birth_date_hidden" type="text" hidden>
+                                        <input
+                                            id="birth_date"
+                                            class="form-control"
+                                            type="text"
+                                            ng-model="competitor.birth_date"
+                                            ng-disabled="isNewCompetitor"
+                                            placeholder="Birth Date">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>City </label>
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            ng-model="competitor.city"
+                                            ng-disabled="isNewCompetitor"
+                                            placeholder="City">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>State </label>
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            ng-model="competitor.state"
+                                            ng-disabled="isNewCompetitor"
+                                            placeholder="State">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Country </label>
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            ng-model="competitor.country"
+                                            ng-disabled="isNewCompetitor"
+                                            placeholder="Country">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label> Zip Code</label>
+                                        <input
+                                            class="form-control"
+                                            type="number"
+                                            ng-model="competitor.zip_code"
+                                            ng-disabled="isNewCompetitor"
+                                            placeholder="Zip Code">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label> Address</label>
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            ng-model="competitor.address"
+                                            ng-disabled="isNewCompetitor"
+                                            placeholder="Address">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label> Address 2</label>
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            ng-model="competitor.address2"
+                                            ng-disabled="isNewCompetitor"
+                                            placeholder="Address 2">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label> Email</label>
+                                        <input
+                                            class="form-control"
+                                            type="email"
+                                            ng-model="competitor.email"
+                                            ng-disabled="isNewCompetitor"
+                                            placeholder="Email">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label> Phone Number</label>
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            ng-model="competitor.phone_number"
+                                            ng-disabled="isNewCompetitor"
+                                            placeholder="Phone Number">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label> Sex</label>
+                                        <select
+                                            class="form-control"
+                                            ng-model="competitor.sex"
+                                            ng-disabled="isNewCompetitor" >
+                                            <option value="0">Male</option>
+                                            <option value="1">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#birth_date').daterangepicker({
+            format: 'YYYY-MM-DD',
+            singleDatePicker : true,
+            calender_style: "picker_4"
+        }, function(start, end, label) {
+            $('#birth_date_hidden').val( start.toISOString("yyyy-MM-dd") );
+        });
+    });
+</script>

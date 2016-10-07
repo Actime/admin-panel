@@ -23,7 +23,7 @@
 
     <div class="clearfix"></div>
 
-     <div class="row">
+    <div class="row">
         <div class="col-md-6 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
@@ -53,7 +53,7 @@
                     <h2><i class="fa fa-th-list" aria-hidden="true"></i> Competitions</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
-                            <a href="#/competitions/new/" class="collapse-link"><i class="fa fa-plus-circle"> Add Competition</i></a>
+                            <a href="#/competitions/new/{{event_detail.id}}" class="collapse-link"><i class="fa fa-plus-circle"> Add Competition</i></a>
                         </li>
                     </ul>
                     <div class="clearfix"></div>
@@ -79,6 +79,30 @@
                       </tbody>
                     </table>
 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2 class="text-danger"><i class="fa fa-ban" aria-hidden="true"></i> Danger Zone! Don't enter in here.</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-lg btn-danger" style="width:100%"ng-click="showDeleteConfirm($event)"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -93,7 +93,7 @@
                     </div>
                     <div class="x_content">
                         <br />
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" ng-if="registerstates && kitstates && competitors">
                           <thead>
                             <tr>
                                 <th>#</th>
@@ -108,7 +108,7 @@
                             <tr ng-repeat="r in registers">
                                 <th scope="row">{{r.id}}</th>
                                 <td><a href="#/registers/{{r.competitor}}">{{r.competitor_num}}</a></td>
-                                <td><a href="#/competitors/{{r.competitor}}">{{r.competitor | getCompetitorsName:this }}</a></td>
+                                <td><a href="#/competitors/{{r.competitor}}">{{r.competitor | getCompetitorsName:this}}</a></td>
                                 <td>{{r.category}}</td>
                                 <td>{{r.kit_state | getKitStateDes:this }}</td>
                                 <td>{{r.register_state | getRegisterStateDes:this }}</td>
