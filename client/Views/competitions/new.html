@@ -63,7 +63,6 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Start Date <span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input ng-model="competition.date_start" type="text" hidden="hidden" id="date_start_hidden">
                                 <input
                                     id="date_start"
                                     class="date-picker form-control col-md-7 col-xs-12"
@@ -75,7 +74,6 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Finish Date <span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input ng-model="competition.date_finish" type="text" hidden="hidden" id="date_finish_hidden">
                                 <input
                                     id="date_finish"
                                     class="form-control col-md-7 col-xs-12"
@@ -133,10 +131,10 @@
                         </div>
                         <div class="form-group">
                             <label class="btn btn-file control-label col-md-3 col-sm-3 col-xs-12">
-                                <i class="fa fa-picture-o" aria-hidden="true"></i> Path<input type="file" style="display: none;">
+                                Route Image
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="competition_image_name" class="form-control" readonly placeholder="Choose Image">
+                                <input type="file" ng-model="file" name="file" base-sixty-four-input required onload="onLoad" accept="image/*">
                             </div>
                         </div>
                         <div class="ln_solid"></div>

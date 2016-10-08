@@ -95,8 +95,7 @@ application
                 });
             },
             imageToEvent : function( id, file ) {
-                var jsonData = JSON.stringify( { file } );
-                console.log( jsonData );
+                var jsonData = JSON.stringify( file );
                 return $http({
                     method : 'PUT',
                     headers : {
@@ -113,20 +112,21 @@ application
         // load all the events funciton
         var load_events = function() {
             // Get all the events from the api yea!!!
-            EventRepository.getAll().success(function(data){
+            EventRepository.getAll().success( function( data ) {
                 $scope.events = data['data'];
+                $scope.events_filtered = $scope.events;
             }).error(function(error){
                 // here a notification of something went wrong
+                $.notify( "There was an error getting the evnets form the system.", "error" );
             });// End of get all the events
         };
         // Get the event by id
         if($routeParams.id)
         {
             // Get event by id service
-            EventRepository.getById( $routeParams.id ).success( function(data){
+            EventRepository.getById( $routeParams.id ).success( function( data ) {
                 $scope.event_detail = data['data'];
-            }).error(function(error){
-                // Error notification i guess
+            }).error( function( error ) {
                 $.notify( "There was an error getting this event.", "error" );
             });// End of get event detail by id
             EventRepository.getCompetitions( $routeParams.id ).success(function(data){
@@ -160,26 +160,37 @@ application
         } else if( $location.path() === '/events/' ){
             // load all the events
             load_events();
+            $scope.onChangeSearch = function() {
+                $scope.events_filtered = $scope.events.filter( event_obj => event_obj.name.includes( $scope.search_text_event ) );
+            };
         } else if( $location.path() === '/events/new/' ){
+            $scope.onLoad = function (e, reader, file, fileList, fileOjects, fileObj) {
+                $scope.event_image = fileObj.base64;
+            };
+            $scope.files = [];
             // init the event model variable
             $scope.event_obj = { name : '', description : '', date_start : '', date_finish : '', date_limit : '', competitors_limit : '', ubication : '', orginizer : '', address : '', event_type : 1 };
             // new event function
             $scope.newEvent = function(){
                 // Get the dates from the inputs, cause the peace of shit angular injector does shit :@
-                $scope.event_obj.date_start =  document.getElementById('date_start_hidden').value;
-                $scope.event_obj.date_finish = document.getElementById('date_finish_hidden').value;
-                $scope.event_obj.date_limit = document.getElementById('date_limit_hidden').value;
+                var d1 =  new Date( document.getElementById('date_start').value );
+                var d2 = new Date( document.getElementById('date_finish').value );
+                var d3 = new Date( document.getElementById('date_limit').value );
+
+                $scope.event_obj.date_start = d1.toISOString("yyyy-MM-ddTHH:mm:ss");
+                $scope.event_obj.date_finish = d2.toISOString("yyyy-MM-ddTHH:mm:ss");
+                $scope.event_obj.date_limit = d3.toISOString("yyyy-MM-ddTHH:mm:ss");
+
                 // Add the event
                 EventRepository.newEvent( $scope.event_obj ).success( function(data) {
                     $.notify( "The Event '" + $scope.event_obj.name + "', has been successfuly added." , "success" );
-                    // Add image
                     EventRepository.imageToEvent( data.id, $scope.event_image ).success( function( data ) {
-                        console.log( data );
+                        $location.path( '/events/' );
+                        $.notify( "The image has been successfuly added.", "success" );
                     }).error( function( error ) {
-                        console.log( error );
+                        $location.path( '/events/' );
                         $.notify( "There was an error with the image.", "error" );
                     });
-                    $location.path( '/events/' );
                 }).error( function(error) {
                     $.notify( "There was an error adding the Event", "error" );
                 });

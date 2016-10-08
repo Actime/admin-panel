@@ -11,7 +11,7 @@
             <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                     <div class="input-group">
-                        <input ng-model="search.text" type="text" class="form-control" placeholder="Search for...">
+                        <input ng-model="search_text_event" ng-change="onChangeSearch()" type="text" class="form-control" placeholder="Search for...">
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="e in events">
+                                <tr ng-repeat="e in events_filtered">
                                     <td><a href="#/events/{{e.id}}">{{e.name}}</a></td>
                                     <td >{{e.date_start}}</td>
                                     <td >{{e.date_finish}}</td>

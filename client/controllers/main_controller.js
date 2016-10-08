@@ -1,5 +1,5 @@
 
-var application = angular.module('actime_admin_main_app', ['ngRoute', 'ngCookies', 'ngMaterial'])
+var application = angular.module('actime_admin_main_app', ['ngRoute', 'ngCookies', 'ngMaterial', 'naif.base64'])
     .run( ['$rootScope', '$location', 'AuthRepository', function( $rootScope, $location, AuthRepository ) {
         // If not loggedin, load login path
         if( !AuthRepository.isSessionSet() ) {
@@ -21,6 +21,15 @@ var application = angular.module('actime_admin_main_app', ['ngRoute', 'ngCookies
             })
             .when( '/events/edit/:id', {
                 templateUrl: '../Views/events/edit.html',
+            })
+            .when( '/events/convs/:id', {
+                templateUrl: '../Views/events/convs.html',
+            })
+            .when( '/events/prices/:id', {
+                templateUrl: '../Views/events/prices.html',
+            })
+            .when( '/events/gallery/:id', {
+                templateUrl: '../Views/events/gallery.html',
             })
             .when( '/events/:id', {
                 templateUrl: '../Views/events/detail.html',
@@ -67,6 +76,9 @@ var application = angular.module('actime_admin_main_app', ['ngRoute', 'ngCookies
             })
             .when( '/registers/cfm/:id', {
                 templateUrl: '../Views/registers/confirmation_win.html',
+            })
+            .when( '/registers/edit/:id', {
+                templateUrl: '../Views/registers/edit.html',
             })
             // General
             .when( '/settings/', {

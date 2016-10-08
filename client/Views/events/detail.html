@@ -48,37 +48,72 @@
         </div>
 
         <div class="col-md-6 col-xs-12">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2><i class="fa fa-th-list" aria-hidden="true"></i> Competitions</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li>
-                            <a href="#/competitions/new/{{event_detail.id}}" class="collapse-link"><i class="fa fa-plus-circle"> Add Competition</i></a>
-                        </li>
-                    </ul>
-                    <div class="clearfix"></div>
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2><i class="fa fa-film" aria-hidden="true"></i> Media</h2>
+                        <ul class="nav navbar-right panel_toolbox"></ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a href="#/events/prices/{{event_detail.id}}">
+                                    <button class="btn btn-lg btn-primary" style="width:100%;"><i class="fa fa-trophy" aria-hidden="true"></i> Add Price</button>
+                                </a>
+                            </div>
+                            <div class="col-md-12">
+                                <a href="#/events/convs/{{event_detail.id}}">
+                                    <button class="btn btn-lg btn-primary" style="width:100%;">
+                                        <i class="fa fa-paper-plane" aria-hidden="true"></i> Add Convocatory
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="col-md-12">
+                                <a href="#/events/gallery/{{event_detail.id}}">
+                                    <button class="btn btn-lg btn-primary" style="width:100%;">
+                                        <i class="fa fa-picture-o" aria-hidden="true"></i> Add Photo To Gallery
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="x_content">
-                    <br />
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Name</th>
-                          <th>Cost </th>
-                          <th>Register</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr ng-repeat="c in competitions">
-                          <th scope="row">{{c.id}}</th>
-                          <td><a href="#/competitions/{{c.id}}">{{c.name}}</a></td>
-                          <td>{{c.cost}}</td>
-                          <td><a href="#/registers/new/{{c.id}}"><i class="fa fa-user-plus" aria-hidden="true"></i></a></td>
-                        </tr>
-                      </tbody>
-                    </table>
+            </div>
 
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2><i class="fa fa-th-list" aria-hidden="true"></i> Competitions</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a href="#/competitions/new/{{event_detail.id}}" class="collapse-link"><i class="fa fa-plus-circle"> Add Competition</i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <table class="table table-bordered">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Name</th>
+                              <th>Cost </th>
+                              <th>Register</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr ng-repeat="c in competitions">
+                              <th scope="row">{{c.id}}</th>
+                              <td><a href="#/competitions/{{c.id}}">{{c.name}}</a></td>
+                              <td>{{c.cost}}</td>
+                              <td><a href="#/registers/new/{{c.id}}"><i class="fa fa-user-plus" aria-hidden="true"></i></a></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

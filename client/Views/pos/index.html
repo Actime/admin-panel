@@ -53,12 +53,16 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Event</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbdody>
                                 <tr ng-repeat="r in pending_registers_filtered" >
-                                    <td>{{r.competitor | getCompetitorsName:this}}</td>
+                                    <td><a href="#/registers/edit/{{r.id}}">{{r.competitor | getCompetitorsName:this}}</a></td>
                                     <td>{{r.competition.competition_event.name}}</td>
+                                    <td>
+                                        <span class="label label-danger"><i class="fa fa-money" aria-hidden="true"></i> Pendiente</span>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -98,7 +102,7 @@
                             </thead>
                             <tbdody>
                                 <tr ng-repeat="nrk in not_returned_kits_filtered" >
-                                    <td>{{nrk.competitor | getCompetitorsName:this}}</td>
+                                    <td><a href="#/registers/edit/{{nrk.id}}">{{nrk.competitor | getCompetitorsName:this}}</a></td>
                                     <td>{{nrk.competition.competition_event.name}}</td>
                                     <td>
                                         <span ng-if="nrk.kit_state == 3" class="label label-danger"><i class="fa fa-star-half-o" aria-hidden="true"></i> Entregado</span>

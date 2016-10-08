@@ -108,10 +108,30 @@ application
                     url : AuthRepository.getApiUri() + 'register/' + data.id,
                     data : jsonData
                 });
+            },
+            getCompetitorById : function( id ) {
+                return $http({
+                    method : 'GET',
+                    headers : {
+                        'Content-Type' : 'application/json',
+                        'Authorization' : AuthRepository.getTheFullAuthHeader()
+                    },
+                    url : AuthRepository.getApiUri() + 'competitor/' + id
+                });
+            },
+            deleteRegister : function( id ) {
+                return $http({
+                    method : 'DELETE',
+                    headers : {
+                        'Content-Type' : 'application/json',
+                        'Authorization' : AuthRepository.getTheFullAuthHeader()
+                    },
+                    url : AuthRepository.getApiUri() + 'register/' + id
+                });
             }
         });
     }])
-    .controller( 'PoSController', [ '$scope', '$location', '$routeParams', 'RegistersRepository', 'CompetitionsRepository', 'EventRepository', function( $scope, $location, $routeParams, RegistersRepository, CompetitionsRepository, EventRepository ) {
+    .controller( 'PoSController', [ '$scope', '$location', '$routeParams', '$mdDialog', 'RegistersRepository', 'CompetitionsRepository', 'EventRepository', 'StatesService', function( $scope, $location, $routeParams, $mdDialog, RegistersRepository, CompetitionsRepository, EventRepository, StatesService ) {
         // load all the evets function
         var load_events = function() {
             EventRepository.getAll().success( function(data) {
@@ -141,7 +161,6 @@ application
                 $scope.competitions = data['data'];
                 $scope.competitions = $scope.competitions.map( function( competition ) {
                     competition.competition_event = $scope.events.find( event_obj => event_obj.id === competition.competition_event );
-                    console.log( competition );
                     return competition;
                 });
                 // load pending_registers
@@ -266,7 +285,8 @@ application
                 // if isNewCompetitor then register competitor first
                 if( !$scope.isNewCompetitor ) {
                     // Get the birth_date
-                    $scope.competitor.birth_date = document.getElementById( 'birth_date_hidden' ).value.substring(0,10);
+                    var d1 = new Date( document.getElementById( 'birth_date' ).value );
+                    $scope.competitor.birth_date = d1.toISOString( "yyyy-MM-ddTHH:mm:ss" ).substring(0,10);
                     // Add competitor to the system and then return it
                     RegistersRepository.newCompetitor( $scope.competitor ).success( function( data ) {
                         $scope.competitor = data;
@@ -302,6 +322,11 @@ application
             // Get the register by id
             RegistersRepository.getRegisterById( $routeParams.id ).success( function( data ) {
                 $scope.register_detail = data['data'];
+                RegistersRepository.getCompetitorById( $scope.register_detail.competitor ).success( function( data ) {
+                    $scope.register_detail.competitor = data['data'];
+                }).error( function( error ) {
+                    $.notify( "There was an error getting the competitor.", "error" );
+                });
             }).error( function( error ) {
                 $.notify( "There was an error getting the register by id from the system.", "error" );
             });
@@ -322,6 +347,80 @@ application
                     $location.path( '/pos/' );
                 }).error( function( error ) {
                     $.notify( "There was an error updating the Register", "error" );
+                });
+            };
+        } else if( $location.path().includes( '/registers/edit/' ) ) {
+            StatesService.getAllKitStates().success( function( data ) {
+                $scope.kit_states = data['data'];
+                StatesService.getAlLRegisterStates().success( function( data ) {
+                    $scope.register_states = data['data'];
+                    CompetitionsRepository.getTeams().success( function( data ) {
+                        $scope.teams = data['data'];
+                    }).error( function( error ) {
+                        $.notify( "There was an error getting the teams from the system.", "error" );
+                    });
+                    RegistersRepository.getRegisterById( $routeParams.id ).success( function( data ) {
+                        $scope.register_detail = data['data'];
+                        RegistersRepository.getCompetitorById( $scope.register_detail.competitor ).success( function( data ) {
+                            $scope.register_detail.competitor = data['data'];
+                        }).error( function( error ) {
+                            $.notify( "There was an error getting the competitor from the system.", "error" );
+                        });
+                        CompetitionsRepository.getCompetitionById( $scope.register_detail.competition ).success( function( data ) {
+                            $scope.register_detail.competition = data['data'];
+                            EventRepository.getById( $scope.register_detail.competition.competition_event ).success( function( data ) {
+                                $scope.register_detail.competition.competition_event = data['data'];
+                            }).error( function( error ) {
+                                $.notify( "There was an error getting the event from the system.", "error" );
+                            });
+                        }).error( function( error ) {
+                            $.notify( "There was an error getting the competition from the sytem.", "error" );
+                        });
+                        $scope.register_detail.kit_state = $scope.kit_states.find( state => state.id === $scope.register_detail.kit_state );
+                        $scope.register_detail.team = $scope.teams.find( team => team.id === $scope.register_detail.team );
+                        $scope.register_detail.register_state = $scope.register_states.find( state => state.id === $scope.register_detail.register_state );
+                    }).error( function( error ) {
+                        $.notify( "There was an error getting the register from the system.", "error" );
+                    });
+                }).error( function( error ) {
+                    $.notify( "There was an error getting the register states fron the system.", "error" );
+                });
+            }).error( function( error ) {
+                $.notify( "There was an error getting the kit states form the system.", "error" );
+            });
+            // Show delete confirmation dialog
+            $scope.deleteRegister = function( ev, id ){
+                // Appending dialog to document.body to cover sidenav in docs app
+                var confirm = $mdDialog.confirm()
+                    .title('Would you like to delete the Register?')
+                    .textContent("After you delete this, It won't be possible to get it back.")
+                    .ariaLabel('Lucky day')
+                    .targetEvent(ev)
+                    .ok('Delete Register')
+                    .cancel('Cancel');
+                // confirmation dialog
+                $mdDialog.show(confirm).then(function() {
+                    RegistersRepository.deleteRegister( id ).success( function(data) {
+                        $.notify( "Your Register has been deleted.", "warn" );
+                        $location.path( '/pos/' );
+                    }).error( function(error) {
+                        $.notify( "Something went wrong.", "error" );
+                    });
+                }, function() {
+                    // Nofity the error or cancelation
+                });
+            };
+            $scope.updateRegister = function() {
+                $scope.register_detail.competitor = $scope.register_detail.competitor.id;
+                $scope.register_detail.competition = $scope.register_detail.competition.id;
+                $scope.register_detail.kit_state = $scope.register_detail.kit_state.id;
+                $scope.register_detail.register_state = $scope.register_detail.register_state.id;
+                $scope.register_detail.team = $scope.register_detail.team.id;
+                RegistersRepository.updateRegister( $scope.register_detail ).success( function( data ) {
+                    $.notify( "Register successfuly updated in the system.", "success" );
+                    $location.path( '/pos/' );
+                }).error( function( error ) {
+                    $.notify( "There was an error updating the register on the system.", "error" );
                 });
             };
         }

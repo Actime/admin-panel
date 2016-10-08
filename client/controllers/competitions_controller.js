@@ -134,12 +134,37 @@ application
                         },
                         url : AuthRepository.getApiUri() + 'competition/'
                     });
+                },
+                imageToCompetition : function( id, file ) {
+                    var jsonData = JSON.stringify( file );
+                    return $http({
+                        method : 'PUT',
+                        headers : {
+                            'Content-Type' : 'application/json',
+                            'Authorization' : AuthRepository.getTheFullAuthHeader()
+                        },
+                        url : AuthRepository.getApiUri() + 'competition/image/' + id,
+                        data : jsonData
+                    });
+                },
+                getCompetitionById : function( id ) {
+                    return $http({
+                        method : 'GET',
+                        headers : {
+                            'Content-Type' : 'application/json',
+                            'Authorization' : AuthRepository.getTheFullAuthHeader()
+                        },
+                        url : AuthRepository.getApiUri() + 'competition/' + id
+                    });
                 }
         };
     }])
     .controller( 'CompetitionsController', [ '$scope', '$rootScope', '$routeParams', '$location', 'CompetitionsRepository', function( $scope, $rootScope, $routeParams, $location, CompetitionsRepository ) {
         // Verify if there is an id on route params
         if( $location.path().includes( '/competitions/new/' ) ) {
+            $scope.onLoad = function (e, reader, file, fileList, fileOjects, fileObj) {
+                $scope.route_image = fileObj.base64;
+            };
             // Init the copmetition model
             $scope.competition = { name : '', description : '', date_start : '', date_finish : '', date_limit : '', competitors_limit : null, categories : [], competition_type : null, cost : null, competition_event : $routeParams.id };
             // load the categories
@@ -163,12 +188,20 @@ application
                 // change the competition_type to just the is
                 $scope.competition.competition_type = $scope.competition.competition_type.id;
                 // Set the dates on the competition
-                $scope.competition.date_start = document.getElementById( 'date_start_hidden' ).value;
-                $scope.competition.date_finish = document.getElementById( 'date_finish_hidden' ).value;
+                var d1 = new Date( document.getElementById( 'date_start' ).value );
+                var d2 = new Date( document.getElementById( 'date_finish' ).value );
+                $scope.competition.date_start = d1.toISOString("yyyy-MM-ddTHH:mm:ss");
+                $scope.competition.date_finish = d2.toISOString("yyyy-MM-ddTHH:mm:ss");
                 // Add teh new competition
                 CompetitionsRepository.newCompetition( $scope.competition ).success( function( data ) {
                     $.notify( "The competition : '" + $scope.competition.name + "', has been successfuly added.", "success" );
-                    $location.path( '/events/' + $scope.competition.competition_event );
+                    CompetitionsRepository.imageToCompetition( data.id, $scope.route_image ).success( function( data ) {
+                        $.notify( "The route to the competition has been successfuly added.", "success" );
+                        $location.path( '/events/' + $scope.competition.competition_event );
+                    }).error( function( error ) {
+                        $.notify( "There was an error adding the route to the competition.", "error" );
+                        $location.path( '/events/' + $scope.competition.competition_event );
+                    });
                 }).error( function(error) {
                     $.notify( "There was an error adding the competition to the system.", "error" );
                 });

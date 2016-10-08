@@ -79,7 +79,6 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Start Date <span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input ng-model="event_obj.date_start" type="text" hidden="hidden" id="date_start_hidden">
                                 <input
                                     id="date_start"
                                     ng-model="event_obj.date_start"
@@ -92,7 +91,6 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Finish Date <span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input ng-model="event_obj.date_finish" type="text" hidden="hidden" id="date_finish_hidden">
                                 <input
                                     id="date_finish"
                                     ng-model="event_obj.date_finish"
@@ -105,7 +103,6 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Limit <span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input ng-model="event_obj.date_limit" type="text" hidden="hidden" id="date_limit_hidden">
                                 <input
                                     id="date_limit"
                                     class="form-control col-md-7 col-xs-12"
@@ -163,7 +160,7 @@
                                 Event Image
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="file" ng-model="event_image" class="form-control" >
+                                <input type="file" ng-model="file" name="file" base-sixty-four-input required onload="onLoad" accept="image/*">
                             </div>
                         </div>
                         <div class="ln_solid"></div>
@@ -191,8 +188,6 @@
             format: 'MM-DD-YYYY h:mm A',
             singleDatePicker : true,
             calender_style: "picker_4"
-        }, function(start, end, label) {
-            $('#date_start_hidden').val( start.toISOString("yyyy-MM-ddTHH:mm:ssZ") );
         });
         $('#date_finish').daterangepicker({
             timePicker: true,
@@ -200,8 +195,6 @@
             format: 'MM-DD-YYYY h:mm A',
             singleDatePicker: true,
             calender_style: "picker_4"
-        }, function(start, end, label) {
-            $('#date_finish_hidden').val( start.toISOString("yyyy-MM-ddTHH:mm:ssZ") );
         });
         $('#date_limit').daterangepicker({
             timePicker: true,
@@ -209,8 +202,6 @@
             format: 'MM-DD-YYYY h:mm A',
             singleDatePicker: true,
             calender_style: "picker_4"
-        }, function(start, end, label) {
-            $('#date_limit_hidden').val( start.toISOString("yyyy-MM-ddTHH:mm:ssZ") );
         });
     });
 </script>
