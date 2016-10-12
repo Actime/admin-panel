@@ -25,7 +25,7 @@ var application = angular.module('actime_admin_main_app', ['ngRoute', 'ngCookies
             .when( '/events/convs/:id', {
                 templateUrl: '../Views/events/convs.html',
             })
-            .when( '/events/prices/:id', {
+            .when( '/events/prizes/:id', {
                 templateUrl: '../Views/events/prices.html',
             })
             .when( '/events/gallery/:id', {

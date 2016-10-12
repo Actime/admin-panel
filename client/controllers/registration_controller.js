@@ -4,40 +4,28 @@ application
             getRegisters : function() {
                 return $http({
                     method : 'GET',
-                    headers : {
-                        'Content-Type' : 'application/json',
-                        'Authorization' : AuthRepository.getTheFullAuthHeader()
-                    },
+                    headers : AuthRepository.getFullJSONHeader(),
                     url : AuthRepository.getApiUri() + 'register/'
                 });
             },
             getAllCompetitors : function() {
                 return $http({
                     method : 'GET',
-                    headers : {
-                        'Content-Type' : 'application/json',
-                        'Authorization' : AuthRepository.getTheFullAuthHeader()
-                    },
+                    headers : AuthRepository.getFullJSONHeader(),
                     url : AuthRepository.getApiUri() + 'competitor/'
                 });
             },
             getCompetitorsNumber : function( id ){
                 return $http({
                     method : 'GET',
-                    headers : {
-                        'Content-Type' : 'application/json',
-                        'Authorization' : AuthRepository.getTheFullAuthHeader()
-                    },
+                    headers : AuthRepository.getFullJSONHeader(),
                     url : AuthRepository.getApiUri() + 'register/competitornum/' + id
                 });
             },
             getRegisterById : function( id ) {
                 return $http({
                     method : 'GET',
-                    headers : {
-                        'Content-Type' : 'application/json',
-                        'Authorization' : AuthRepository.getTheFullAuthHeader()
-                    },
+                    headers : AuthRepository.getFullJSONHeader(),
                     url : AuthRepository.getApiUri() + 'register/' + id
                 });
             },
@@ -59,10 +47,7 @@ application
                 });
                 return $http({
                     method : 'POST',
-                    headers : {
-                        'Content-Type' : 'application/json',
-                        'Authorization' : AuthRepository.getTheFullAuthHeader()
-                    },
+                    headers : AuthRepository.getFullJSONHeader(),
                     url : AuthRepository.getApiUri() + 'competitor/',
                     data : jsonData
                 });
@@ -80,10 +65,7 @@ application
                 });
                 return $http({
                     method : 'POST',
-                    headers : {
-                        'Content-Type' : 'application/json',
-                        'Authorization' : AuthRepository.getTheFullAuthHeader()
-                    },
+                    headers : AuthRepository.getFullJSONHeader(),
                     url : AuthRepository.getApiUri() + 'register/',
                     data : jsonData
                 });
@@ -101,10 +83,7 @@ application
                 });
                 return $http({
                     method : 'PUT',
-                    headers : {
-                        'Content-Type' : 'application/json',
-                        'Authorization' : AuthRepository.getTheFullAuthHeader()
-                    },
+                    headers : AuthRepository.getFullJSONHeader(),
                     url : AuthRepository.getApiUri() + 'register/' + data.id,
                     data : jsonData
                 });
@@ -112,20 +91,14 @@ application
             getCompetitorById : function( id ) {
                 return $http({
                     method : 'GET',
-                    headers : {
-                        'Content-Type' : 'application/json',
-                        'Authorization' : AuthRepository.getTheFullAuthHeader()
-                    },
+                    headers : AuthRepository.getFullJSONHeader(),
                     url : AuthRepository.getApiUri() + 'competitor/' + id
                 });
             },
             deleteRegister : function( id ) {
                 return $http({
                     method : 'DELETE',
-                    headers : {
-                        'Content-Type' : 'application/json',
-                        'Authorization' : AuthRepository.getTheFullAuthHeader()
-                    },
+                    headers : AuthRepository.getFullJSONHeader(),
                     url : AuthRepository.getApiUri() + 'register/' + id
                 });
             }
@@ -295,7 +268,7 @@ application
                     });
                 }
                 // Return the competitiors number
-                RegistersRepository.getCompetitorsNumber( $scope.register.competition.competition_event ).success( function( data ) {
+                RegistersRepository.getCompetitorsNumber( $scope.register.competition.id ).success( function( data ) {
                     // the competitor as an id
                     $scope.register.competitor = $scope.competitor.id;
                     // then register the register daaah on the system.
@@ -333,6 +306,7 @@ application
             // then update with the option selected
             $scope.kitDelivered = function(){
                 $scope.register_detail.kit_state = 3;
+                $scope.register_detail.competitor = $scope.register_detail.competitor.id;
                 RegistersRepository.updateRegister( $scope.register_detail ).success( function( data ) {
                     $.notify( "Register states as delivered.", "success" );
                     $location.path( '/pos/' );
@@ -342,6 +316,7 @@ application
             };
             $scope.kitPending = function(){
                 $scope.register_detail.kit_state = 9;
+                $scope.register_detail.competitor = $scope.register_detail.competitor.id;
                 RegistersRepository.updateRegister( $scope.register_detail ).success( function( data ) {
                     $.notify( "Register states as pending...", "warn" );
                     $location.path( '/pos/' );

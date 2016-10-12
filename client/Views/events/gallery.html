@@ -1,0 +1,71 @@
+<div class="row" ng-controller="MediaController">
+
+    <div class="clearfix"></div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-plus-circle" aria-hidden="true"></i> New Element On Gallery</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><i class="fa fa-eraser" aria-hidden="true"></i> Clear</li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <form ng-submit="addImage()">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label class="btn btn-file control-label col-md-3 col-sm-3 col-xs-12">
+                                    Image
+                                </label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <input class="form-control" type="file" ng-model="file" name="file" base-sixty-four-input required onload="onLoad" accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <input class="form-control btn-primary" type="submit" value="Add New">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Gallery <small> [{{event_detail.name}}]</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+
+                </li>
+                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div ng-repeat="g in galleries" class="col-md-55">
+                        <img class="img-responsive avatar-view" style="width: 100%; display: block;" ng-src="{{g.image_url}}" alt="image" />
+                        <div class="mask">
+                          <div class="tools tools-bottom">
+                            <button class="btn btn-sm btn-danger" ng-click="deleteConfirmation($event, g.id)" style="width:100%;"><i class="fa fa-trash"></i></button>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

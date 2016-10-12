@@ -1,0 +1,102 @@
+<div class="row" ng-controller="MediaController">
+
+    <div class="clearfix"></div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-plus-circle" aria-hidden="true"></i> New Prize</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><i class="fa fa-eraser" aria-hidden="true"></i> Clear</li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <form ng-submit="newPrize()">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input
+                                    class="form-control"
+                                    ng-model="prize.name"
+                                    type="text"
+                                    placeholder="Name" >
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input
+                                    class="form-control"
+                                    ng-model="prize.description"
+                                    type="text"
+                                    placeholder="Description" >
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="btn btn-file control-label col-md-3 col-sm-3 col-xs-12">
+                                    Prize Image
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input class="form-control" type="file" ng-model="file" name="file" base-sixty-four-input required onload="onLoad" accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <input class="form-control btn-primary" type="submit" value="Add New">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Prizes <small> [{{event_detail.name}}]</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Settings 1</a>
+                        </li>
+                        <li><a href="#">Settings 2</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div ng-repeat="p in prizes" class="col-md-55">
+                        <div class="thumbnail">
+                            <div class="image view view-first">
+                            <img style="width: 100%; display: block;" ng-src="{{p.image_url}}" alt="image" />
+                            <div class="mask">
+                              <p>Delete</p>
+                              <div class="tools tools-bottom">
+                                <a href="" ng-click="deleteConfrimation($event, p.id)"><i class="fa fa-trash"></i></a>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="caption">
+                                <p><b>{{p.name}}</b> : {{p.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

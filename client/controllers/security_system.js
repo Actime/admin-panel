@@ -39,6 +39,12 @@ application
             // removeSession : removes the session from the cookies
             removeSession : function() {
                 $cookies.remove( 'userdata' );
+            },
+            getFullJSONHeader : function(){
+                return({
+                    'Content-Type' : 'application/json',
+                    'Authorization' : this.getTheFullAuthHeader()
+                });
             }
         }
     }])
