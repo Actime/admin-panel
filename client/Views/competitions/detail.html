@@ -39,8 +39,8 @@
                     <div class="row">
                         <div class="col-md-12"><img src="{{competition_detail.image_url}}" alt="..." class="img-responsive img-rounded profile_img" ></div>
                         <div class="col-md-12"><h4>{{competition_detail.name}}</h4></div>
-                        <div class="col-md-12"><p>{{competition_detail.description}}</p></div>
-                        <div class="col-md-12"><small>{{competition_detail.date_start}}</small></div>
+                        <div class="col-md-12"><p>{{competition_detail.description | dateTimeFilter}}</p></div>
+                        <div class="col-md-12"><small>{{competition_detail.date_start | dateTimeFilter}}</small></div>
                         <div class="col-md-12"><p><i class="fa fa-usd" aria-hidden="true"></i>
  {{competition_detail.cost}}</p></div>
                     </div>

@@ -331,31 +331,31 @@ application
                     $scope.register_states = data['data'];
                     CompetitionsRepository.getTeams().success( function( data ) {
                         $scope.teams = data['data'];
+                        RegistersRepository.getRegisterById( $routeParams.id ).success( function( data ) {
+                            $scope.register_detail = data['data'];
+                            RegistersRepository.getCompetitorById( $scope.register_detail.competitor ).success( function( data ) {
+                                $scope.register_detail.competitor = data['data'];
+                            }).error( function( error ) {
+                                $.notify( "There was an error getting the competitor from the system.", "error" );
+                            });
+                            CompetitionsRepository.getCompetitionById( $scope.register_detail.competition ).success( function( data ) {
+                                $scope.register_detail.competition = data['data'];
+                                EventRepository.getById( $scope.register_detail.competition.competition_event ).success( function( data ) {
+                                    $scope.register_detail.competition.competition_event = data['data'];
+                                }).error( function( error ) {
+                                    $.notify( "There was an error getting the event from the system.", "error" );
+                                });
+                            }).error( function( error ) {
+                                $.notify( "There was an error getting the competition from the sytem.", "error" );
+                            });
+                            $scope.register_detail.kit_state = $scope.kit_states.find( state => state.id === $scope.register_detail.kit_state );
+                            $scope.register_detail.team = $scope.teams.find( team => team.id === $scope.register_detail.team );
+                            $scope.register_detail.register_state = $scope.register_states.find( state => state.id === $scope.register_detail.register_state );
+                        }).error( function( error ) {
+                            $.notify( "There was an error getting the register from the system.", "error" );
+                        });
                     }).error( function( error ) {
                         $.notify( "There was an error getting the teams from the system.", "error" );
-                    });
-                    RegistersRepository.getRegisterById( $routeParams.id ).success( function( data ) {
-                        $scope.register_detail = data['data'];
-                        RegistersRepository.getCompetitorById( $scope.register_detail.competitor ).success( function( data ) {
-                            $scope.register_detail.competitor = data['data'];
-                        }).error( function( error ) {
-                            $.notify( "There was an error getting the competitor from the system.", "error" );
-                        });
-                        CompetitionsRepository.getCompetitionById( $scope.register_detail.competition ).success( function( data ) {
-                            $scope.register_detail.competition = data['data'];
-                            EventRepository.getById( $scope.register_detail.competition.competition_event ).success( function( data ) {
-                                $scope.register_detail.competition.competition_event = data['data'];
-                            }).error( function( error ) {
-                                $.notify( "There was an error getting the event from the system.", "error" );
-                            });
-                        }).error( function( error ) {
-                            $.notify( "There was an error getting the competition from the sytem.", "error" );
-                        });
-                        $scope.register_detail.kit_state = $scope.kit_states.find( state => state.id === $scope.register_detail.kit_state );
-                        $scope.register_detail.team = $scope.teams.find( team => team.id === $scope.register_detail.team );
-                        $scope.register_detail.register_state = $scope.register_states.find( state => state.id === $scope.register_detail.register_state );
-                    }).error( function( error ) {
-                        $.notify( "There was an error getting the register from the system.", "error" );
                     });
                 }).error( function( error ) {
                     $.notify( "There was an error getting the register states fron the system.", "error" );

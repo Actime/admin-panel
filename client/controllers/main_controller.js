@@ -135,4 +135,42 @@ var application = angular.module('actime_admin_main_app', ['ngRoute', 'ngCookies
     }])
     .controller( 'statsController', [ '$scope', function( $scope ) {
 
-    }]);
+    }])
+    .filter( 'dateTimeFilter', function() {
+        return function( date ) {
+            var d = new Date( date );
+            var month = new Array();
+            month[0] = "January";
+            month[1] = "February";
+            month[2] = "March";
+            month[3] = "April";
+            month[4] = "May";
+            month[5] = "June";
+            month[6] = "July";
+            month[7] = "August";
+            month[8] = "September";
+            month[9] = "October";
+            month[10] = "November";
+            month[11] = "December";
+            return "Date : " + d.getDate() + " " + month[d.getMonth()] + " " + d.getFullYear() + " Time : " + (d.getHours() < 10 ? ("0"+d.getHours()) : d.getHours() ) + ":" + (d.getMinutes()<10?("0"+d.getMinutes()):d.getMinutes());
+        };
+    })
+    .filter( 'dateFilter', function() {
+        return function( date ) {
+            var d = new Date( date );
+            var month = new Array();
+            month[0] = "January";
+            month[1] = "February";
+            month[2] = "March";
+            month[3] = "April";
+            month[4] = "May";
+            month[5] = "June";
+            month[6] = "July";
+            month[7] = "August";
+            month[8] = "September";
+            month[9] = "October";
+            month[10] = "November";
+            month[11] = "December";
+            return d.getDate() + " " + month[d.getMonth()] + " " + d.getFullYear();
+        };
+    });

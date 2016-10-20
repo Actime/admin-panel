@@ -47,8 +47,8 @@
                             <tbody>
                                 <tr ng-repeat="e in events_filtered">
                                     <td><a href="#/events/{{e.id}}">{{e.name}}</a></td>
-                                    <td >{{e.date_start}}</td>
-                                    <td >{{e.date_finish}}</td>
+                                    <td >{{e.date_start | dateTimeFilter}}</td>
+                                    <td >{{e.date_finish | dateTimeFilter}}</td>
                                     <td>{{e.orginizer}}</td>
                                     <td ><a href="#/events/{{e.id}}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
                                 </tr>

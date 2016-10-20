@@ -139,7 +139,7 @@
                         <tbody>
                             <tr ng-repeat="e in events_filtered">
                                 <td>{{e.name}}</td>
-                                <td>{{e.date_start}}</td>
+                                <td>{{e.date_start | dateFilter}}</td>
                                 <td><a href="#/registers/new/{{e.id}}"><button class="btn btn-sm btn-success">New Register</button></a></td>
                             </tr>
                         </tbody>

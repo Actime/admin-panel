@@ -176,7 +176,7 @@ application
                 var d1 =  new Date( document.getElementById('date_start').value );
                 var d2 = new Date( document.getElementById('date_finish').value );
                 var d3 = new Date( document.getElementById('date_limit').value );
-
+                
                 $scope.event_obj.date_start = d1.toISOString("yyyy-MM-ddTHH:mm:ss");
                 $scope.event_obj.date_finish = d2.toISOString("yyyy-MM-ddTHH:mm:ss");
                 $scope.event_obj.date_limit = d3.toISOString("yyyy-MM-ddTHH:mm:ss");

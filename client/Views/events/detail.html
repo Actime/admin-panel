@@ -40,7 +40,7 @@
                         <div class="col-md-12"><img src="{{event_detail.image_url}}" alt="..." class="img-responsive img-rounded profile_img" ></div>
                         <div class="col-md-12"><h4>{{event_detail.name}}</h4></div>
                         <div class="col-md-12"><p>{{event_detail.description}}</p></div>
-                        <div class="col-md-12"><small>{{event_detail.date_start}} to {{event_detail.date_finish}}</small></div>
+                        <div class="col-md-12"><small>{{event_detail.date_start | dateTimeFilter}} to {{event_detail.date_finish | dateTimeFilter}}</small></div>
                         <div class="col-md-12"><h6>Orginizer : {{event_detail.orginizer}}</h6></div>
                     </div>
                 </div>
