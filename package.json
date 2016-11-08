@@ -1,5 +1,5 @@
 {
-  "name": "Actime | Admin Panel",
+  "name": "ActimeAdminPanel",
   "version": "0.0.0",
   "description": "An admin panel for the whole control of the system.",
   "main": "server.js",

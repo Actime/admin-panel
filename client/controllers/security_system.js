@@ -45,6 +45,13 @@ application
                     'Content-Type' : 'application/json',
                     'Authorization' : this.getTheFullAuthHeader()
                 });
+            },
+            getUserDetail : function() {
+                return $http({
+                    method : 'GET',
+                    headers : this.getFullJSONHeader(),
+                    url : this.getApiUri() + 'user/' + this.getSession().id
+                });
             }
         }
     }])
@@ -63,6 +70,7 @@ application
             // Validate the username and the password
             AuthRepository.validateLogin( $scope.user.username, $scope.user.password ).success(function(data){
                 var the_data = data['data'];
+                console.log( the_data );
                 var user_data = {
                     id : the_data.pk,
                     username : the_data.username,
@@ -71,9 +79,9 @@ application
                 AuthRepository.setSession( user_data );
                 $rootScope.NavBarPanel.show = true;
                 $location.path( '/' );
-            }).error(function(error){
+            }).error(function(erro){
                 // notify the error
-                $.notify( "Wrong Credentials", "error");
+                $.notify( "Wrong Credentials.", "error");
             });
         };
     }])
@@ -86,6 +94,12 @@ application
         if( !AuthRepository.isSessionSet() ) {
             $rootScope.NavBarPanel.show = false;
             $location.path( '/login/' );
+        } else {
+            AuthRepository.getUserDetail().success( function(data) {
+                $rootScope.user_info = data['data'];
+            }).error( function(error) {
+                console.log( "There was an error getting the user from the system." );
+            });
         }
         // Log out function
         $scope.logout = function(){
