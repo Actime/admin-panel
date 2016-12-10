@@ -52,6 +52,20 @@ application
                     headers : this.getFullJSONHeader(),
                     url : this.getApiUri() + 'user/' + this.getSession().id
                 });
+            },
+            getUserSystemDetail : function( id ) {
+                return $http({
+                    method : 'GET',
+                    headers : this.getFullJSONHeader(),
+                    url : this.getApiUri() + 'usersystem/' + id
+                });
+            },
+            getRolDetail : function( id ) {
+                return $http({
+                    method : 'GET',
+                    headers : this.getFullJSONHeader(),
+                    url : this.getApiUri() + 'rol/' + id
+                });
             }
         }
     }])
@@ -65,20 +79,72 @@ application
             // load on start path
             $location.path( '/' );
         }
+        $scope.setMenuWithRol = function( rol ) {
+            if( rol.name == "Administrador" ) {
+                $rootScope.NavBarPanel.home = true;
+                $rootScope.NavBarPanel.events = true;
+                $rootScope.NavBarPanel.categories = true;
+                $rootScope.NavBarPanel.states = true;
+                $rootScope.NavBarPanel.pos = true;
+                $rootScope.NavBarPanel.general = true;
+                $rootScope.NavBarPanel.tasks = true;
+            } else if( rol.name == "Cobrador" ) {
+                $rootScope.NavBarPanel.home = true;
+                $rootScope.NavBarPanel.events = false;
+                $rootScope.NavBarPanel.categories = false;
+                $rootScope.NavBarPanel.states = false;
+                $rootScope.NavBarPanel.pos = true;
+                $rootScope.NavBarPanel.general = false;
+                $rootScope.NavBarPanel.tasks = false;
+            } else if( rol.name == "General" ) {
+                $rootScope.NavBarPanel.home = true;
+                $rootScope.NavBarPanel.events = true;
+                $rootScope.NavBarPanel.categories = false;
+                $rootScope.NavBarPanel.states = false;
+                $rootScope.NavBarPanel.pos = true;
+                $rootScope.NavBarPanel.general = true;
+                $rootScope.NavBarPanel.tasks = false;
+            } else if( rol.name == "Application" || rol.name == "Competidor" ) {
+                $rootScope.NavBarPanel.home = false;
+                $rootScope.NavBarPanel.events = false;
+                $rootScope.NavBarPanel.categories = false;
+                $rootScope.NavBarPanel.states = false;
+                $rootScope.NavBarPanel.pos = false;
+                $rootScope.NavBarPanel.general = true;
+                $rootScope.NavBarPanel.show = false;
+                $rootScope.NavBarPanel.tasks = false;
+            }
+        };
         // login function
         $scope.login = function() {
             // Validate the username and the password
             AuthRepository.validateLogin( $scope.user.username, $scope.user.password ).success(function(data){
                 var the_data = data['data'];
-                console.log( the_data );
                 var user_data = {
                     id : the_data.pk,
                     username : the_data.username,
                     token : AuthRepository.getBase64Token( the_data.username, the_data.password )
                 };
                 AuthRepository.setSession( user_data );
-                $rootScope.NavBarPanel.show = true;
-                $location.path( '/' );
+                AuthRepository.getUserSystemDetail( the_data.pk ).success( function( us_data ) {
+                    var usersystem_data = us_data['data'];
+                    AuthRepository.getRolDetail( usersystem_data.rol ).success( function( r_data ) {
+                        var rol_data = r_data['data'];
+                        AuthRepository.getUserDetail().success( function(data) {
+                            $rootScope.user_info = data['data'];
+                            $rootScope.user_info.rol = rol_data;
+                            $rootScope.NavBarPanel.show = true;
+                            $scope.setMenuWithRol( $rootScope.user_info.rol );
+                        }).error( function(error) {
+                            console.log( "There was an error getting the user from the system [user]." );
+                        });
+                        $location.path( '/' );
+                    }).error( function( error ) {
+                        console.log( "There was an error getting the user from the system [rol]." );
+                    });
+                }).error( function( error ) {
+                    console.log( "There was an error getting the user from the system [usersystem]." );
+                });
             }).error(function(erro){
                 // notify the error
                 $.notify( "Wrong Credentials.", "error");
@@ -89,16 +155,73 @@ application
         // Init the nav bar panel variable
         $rootScope.NavBarPanel = {
             show : true, // Set show default true
+            home : false,
+            events : false,
+            categories : false,
+            states : false,
+            pos : false,
+            general : false,
+            tasks : false
+        };
+        $scope.setMenuWithRol = function( rol ) {
+            if( rol.name == "Administrador" ) {
+                $rootScope.NavBarPanel.home = true;
+                $rootScope.NavBarPanel.events = true;
+                $rootScope.NavBarPanel.categories = true;
+                $rootScope.NavBarPanel.states = true;
+                $rootScope.NavBarPanel.pos = true;
+                $rootScope.NavBarPanel.general = true;
+                $rootScope.NavBarPanel.tasks = true;
+            } else if( rol.name == "Cobrador" ) {
+                $rootScope.NavBarPanel.home = true;
+                $rootScope.NavBarPanel.events = false;
+                $rootScope.NavBarPanel.categories = false;
+                $rootScope.NavBarPanel.states = false;
+                $rootScope.NavBarPanel.pos = true;
+                $rootScope.NavBarPanel.general = false;
+                $rootScope.NavBarPanel.tasks = false;
+            } else if( rol.name == "General" ) {
+                $rootScope.NavBarPanel.home = true;
+                $rootScope.NavBarPanel.events = true;
+                $rootScope.NavBarPanel.categories = false;
+                $rootScope.NavBarPanel.states = false;
+                $rootScope.NavBarPanel.pos = true;
+                $rootScope.NavBarPanel.general = true;
+                $rootScope.NavBarPanel.tasks = false;
+            } else if( rol.name == "Application" || rol.name == "Competidor" ) {
+                $rootScope.NavBarPanel.home = false;
+                $rootScope.NavBarPanel.events = false;
+                $rootScope.NavBarPanel.categories = false;
+                $rootScope.NavBarPanel.states = false;
+                $rootScope.NavBarPanel.pos = false;
+                $rootScope.NavBarPanel.general = true;
+                $rootScope.NavBarPanel.show = false;
+                $rootScope.NavBarPanel.tasks = false;
+            }
         };
         // If not loggedin
         if( !AuthRepository.isSessionSet() ) {
             $rootScope.NavBarPanel.show = false;
             $location.path( '/login/' );
         } else {
-            AuthRepository.getUserDetail().success( function(data) {
-                $rootScope.user_info = data['data'];
-            }).error( function(error) {
-                console.log( "There was an error getting the user from the system." );
+            AuthRepository.getUserSystemDetail( AuthRepository.getSession().id ).success( function( us_data ) {
+                var usersystem_data = us_data['data'];
+                AuthRepository.getRolDetail( usersystem_data.rol ).success( function( r_data ) {
+                    var rol_data = r_data['data'];
+                    AuthRepository.getUserDetail().success( function(data) {
+                        $rootScope.user_info = data['data'];
+                        $rootScope.user_info.rol = rol_data;
+                        $rootScope.NavBarPanel.show = true;
+                        $scope.setMenuWithRol( $rootScope.user_info.rol );
+                    }).error( function( error ) {
+                        console.log( "There was an error getting the user from the system [user]." );
+                    });
+                    $location.path( '/' );
+                }).error( function( error ) {
+                    console.log( "There was an error getting the user from the system [rol]." );
+                });
+            }).error( function( error ) {
+                console.log( "There was an error getting the user from the system [usersystem]." );
             });
         }
         // Log out function
@@ -107,6 +230,7 @@ application
             AuthRepository.removeSession();
             // Set the nav bar panel variable to false
             $rootScope.NavBarPanel.show = false;
+            $rootScope.user_info = null;
             // redirect to the login view
             $location.path( '/login/' );
         }; // End of logout function
@@ -122,6 +246,7 @@ application
             AuthRepository.removeSession();
             // Set the nav bar panel variable to false
             $rootScope.NavBarPanel.show = false;
+            $rootScope.user_info = null;
             // redirect to the login view
             $location.path( '/login/' );
         };

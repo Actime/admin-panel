@@ -43,7 +43,9 @@
       <div class="col-md-9 col-sm-9 col-xs-12">
         <div id="placeholder33" style="height: 260px; display: none" class="demo-placeholder"></div>
         <div style="width: 100%;">
-          <div id="canvas_dahs" class="demo-placeholder" style="width: 100%; height:270px;"></div>
+            <div id="canvas_dahs" class="demo-placeholder" style="width: 100%; height:270px;">
+                <canvas id="comp_reg_chart"></canvas>
+            </div>
         </div>
       </div>
       <div class="col-md-3 col-sm-3 col-xs-12 bg-white">
@@ -94,7 +96,9 @@
     </div>
   </div>
 </div>
-
+<br />
+<br />
+<br />
 <div class="clearfix"></div>
 
 <div class="row x_panel" ng-controller="statsController">
@@ -161,3 +165,43 @@
     </div>
   </div>
 </div>
+
+
+<!-- Chart.js -->
+<script>
+
+    Chart.defaults.global.legend = {
+        enabled: false
+    };
+
+    // Line chart
+    var ctx = document.getElementById("comp_reg_chart");
+    var lineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        datasets: [{
+                label: "My First dataset",
+                backgroundColor: "rgba(38, 185, 154, 0.31)",
+                borderColor: "rgba(38, 185, 154, 0.7)",
+                pointBorderColor: "rgba(38, 185, 154, 0.7)",
+                pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+                pointHoverBackgroundColor: "#fff",
+                pointHoverBorderColor: "rgba(220,220,220,1)",
+                pointBorderWidth: 1,
+                data: [31, 74, 6, 39, 20, 85, 7]
+            }, {
+                label: "My Second dataset",
+                backgroundColor: "rgba(3, 88, 106, 0.3)",
+                borderColor: "rgba(3, 88, 106, 0.70)",
+                pointBorderColor: "rgba(3, 88, 106, 0.70)",
+                pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
+                pointHoverBackgroundColor: "#fff",
+                pointHoverBorderColor: "rgba(151,187,205,1)",
+                pointBorderWidth: 1,
+                data: [82, 23, 66, 9, 99, 4, 2]
+            }]
+        },
+    });
+
+ </script>

@@ -58,30 +58,30 @@
                                 <br /><br /><br /><br />
                                 <h3>General</h3>
                                 <ul class="nav side-menu">
-                                    <li>
+                                    <li ng-show="NavBarPanel.home">
                                         <a href="#/"><i class="fa fa-home"></i> Home </a>
                                     </li>
-                                    <li>
+                                    <li ng-show="NavBarPanel.events">
                                         <a><i class="fa fa-calendar"></i> Events <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                             <li><a href="#/events/">All events</a></li>
                                             <li><a href="#/events/new/">New event</a></li>
                                         </ul>
                                     </li>
-                                    <li>
+                                    <li ng-show="NavBarPanel.categories">
                                         <a href="#/categories/"><i class="fa fa-list-alt"></i> Categories</a>
                                     </li>
-                                    <li>
+                                    <li ng-show="NavBarPanel.states">
                                         <a><i class="fa fa-sliders"></i> States <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                             <li><a href="#/kit_states/">Kit State</a></li>
                                             <li><a href="#/register_states/">Register State</a></li>
                                         </ul>
                                     </li>
-                                    <li>
+                                    <li ng-show="NavBarPanel.pos">
                                         <a href="#/pos/"><i class="fa fa-money"></i> Point of Sale</a>
                                     </li>
-                                    <li>
+                                    <li ng-show="NavBarPanel.general">
                                         <a><i class="fa fa-cogs"></i> General <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                             <li><a href="#/contents/">Site Contents</a></li>
